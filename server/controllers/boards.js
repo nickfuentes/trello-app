@@ -34,7 +34,7 @@ module.exports = {
             .then(board => {
                 if (!board) {
                     return res.status(404).send({
-                        message: 'Todo Not Found',
+                        message: 'Board Not Found',
                     });
                 }
                 return res.status(200).send(board);
@@ -53,7 +53,7 @@ module.exports = {
             .then(board => {
                 if (!board) {
                     return res.status(404).send({
-                        message: 'Todo Not Found',
+                        message: 'Board Not Found',
                     });
                 }
                 return board
@@ -72,12 +72,12 @@ module.exports = {
             .then(board => {
                 if (!board) {
                     return res.status(400).send({
-                        message: 'Todo Not Found',
+                        message: 'Board Not Found',
                     });
                 }
                 return board
                     .destroy()
-                    .then(() => res.status(204).send())
+                    .then(() => res.status(200).send({ message: 'Board Deleted Succefully!' }))
                     .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
