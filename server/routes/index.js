@@ -9,6 +9,7 @@ module.exports = (app) => {
     app.post('/api/boards', boardsController.create);
     app.get('/api/boards', boardsController.list);
     app.get('/api/boards/:boardId', boardsController.retrieve);
+    app.put('/api/boards/:boardId', boardsController.update);
 
     app.post('/api/boards/:boardId/lists', boardListsController.create);
 };

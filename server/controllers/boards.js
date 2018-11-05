@@ -41,4 +41,45 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+
+    update(req, res) {
+        return Board
+            .findById(req.params.boardId, {
+                include: [{
+                    model: BoardList,
+                    as: 'boardLists',
+                }],
+            })
+            .then(board => {
+                if (!board) {
+                    return res.status(404).send({
+                        message: 'Todo Not Found',
+                    });
+                }
+                return board
+                    .update({
+                        title: req.body.title || board.title,
+                    })
+                    .then(() => res.status(200).send(board))  // Send back the updated todo.
+                    .catch((error) => res.status(400).send(error));
+            })
+            .catch((error) => res.status(400).send(error));
+    },
+
+    destroy(req, res) {
+        return Board
+            .findById(req.params.boardId)
+            .then(board => {
+                if (!board) {
+                    return res.status(400).send({
+                        message: 'Todo Not Found',
+                    });
+                }
+                return board
+                    .destroy()
+                    .then(() => res.status(204).send())
+                    .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
+    },
 };
